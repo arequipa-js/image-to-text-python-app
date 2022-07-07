@@ -12,7 +12,7 @@ st.markdown("")
 image = st.file_uploader(label = "Upload your image here",type=['png','jpg','jpeg'])
 
 words_negative = ['envidia', 'orgullo', 'odio', 'ira', 'miedo']
-keyword = 'paz'
+keyword = 'valor'
 keyword_exists = False
 
 
@@ -35,10 +35,10 @@ if image is not None:
         for text in result:
             word = text[1]
             result_text.append(word)
-            if word in words_negative:
+            if word.lower() in words_negative:
                 words_prohibited.append(word)
 
-            if word == keyword:
+            if keyword.lower() in word.lower():
               keyword_exists = True
 
         st.write(result_text)
@@ -56,7 +56,7 @@ if image is not None:
       st.audio(audio_keyword_bytes, format='audio/ogg')
 
     if len(words_prohibited) > 0:
-      words_prohibited_message = 'Palabras no permitidas: ' + ', '.join(words_prohibited)
+      words_prohibited_message = 'Palabras no permitidas encontradas: ' + ', '.join(words_prohibited)
       st.error(words_prohibited_message)
     
       audio_words_prohibited_file_name = 'words_prohibited.mp3'
